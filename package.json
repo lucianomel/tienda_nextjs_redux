@@ -1,0 +1,32 @@
+{
+  "name": "ventas",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
+    "@sendgrid/mail": "^7.7.0",
+    "@sendinblue/client": "^3.3.1",
+    "dotenv": "^16.3.1",
+    "eslint": "8.43.0",
+    "eslint-config-next": "13.4.6",
+    "glob": "^10.3.1",
+    "next": "13.4.6",
+    "next-redux-wrapper": "^8.1.0",
+    "nodemailer": "^6.9.3",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-redux": "^8.1.1",
+    "react-responsive-carousel": "^3.2.23",
+    "react-router-dom": "^6.14.0",
+    "redux": "^4.2.1",
+    "redux-persist": "^6.0.0",
+    "sib-api-v3-sdk": "^8.5.0",
+    "tls": "^0.0.1"
+  }
+}

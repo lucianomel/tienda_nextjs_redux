@@ -1,0 +1,32 @@
+{
+    "store_name":"El nombre de tu tienda",
+    "store_info":"Bienvenido a nuestra tienda! Precios accesibles y productos de alta calidad",
+    "punto_recogida":"2420 8th Ave SW, Huntsville, AL 35805, EE. UU.",
+    "store_about_welcome":"Nos gusta que nuestros clientes tengan una buena experiencia.",
+    "logo_url":"https://placehold.co/600x400/000000/FFF", 
+    "store_email":"tumail@gmail.com",
+    "items": [
+    {
+      "description": "Producto 1",
+      "price": "$xx",
+      "info": "En perfectas condiciones",
+      "images_urls": 
+        [
+        "https://placehold.co/800?text=Item1+Image1&font=roboto",
+        "https://placehold.co/800?text=Item1+Image2&font=roboto",
+        "https://placehold.co/800?text=Item1+Image3&font=roboto"
+        ]
+    },
+    {
+        "description": "Producto 2",
+        "price": "$yy",
+        "info": "Usado, condiciones aceptables",
+        "images_urls": 
+          [
+          "https://placehold.co/800?text=Item2+Image1&font=roboto",
+          "https://placehold.co/800?text=Item2+Image2&font=roboto",
+          "https://placehold.co/800?text=Item2+Image3&font=roboto"
+          ]
+      }
+  ]
+}
