@@ -1,5 +1,7 @@
 import 'dotenv/config'
 import SibApiV3Sdk from 'sib-api-v3-sdk';
+import validator from 'validator';
+import errorMiddleware from '@/utils/errorMiddleware';
 
 const sendEmail = async (toEmail, fromEmail, subject, htmlContent) => {
   const defaultClient = SibApiV3Sdk.ApiClient.instance;
@@ -19,16 +21,26 @@ const sendEmail = async (toEmail, fromEmail, subject, htmlContent) => {
     console.log('Email sent successfully:', response);
   } catch (error) {
     console.error('Error sending email:', error);
+    //throw new Error("Error sending email")
   }
 };
 
-export default async function handler(req, res) {
+const sendMailEndpoint = async function sendMailEndpoint(req, res) {
   if (req.method === 'POST') {
     const { name, email, message } = req.body;
-
-    try {
-      const rootUrl = req.headers.host ? `${req.headers['x-forwarded-proto'] || 'http'}://${req.headers.host}`+'/' : '';
-      let data =   JSON.parse(await(await fetch(new URL('/api/data',rootUrl))).json())
+    const rootUrl = req.headers.host ? `${req.headers['x-forwarded-proto'] || 'http'}://${req.headers.host}`+'/' : '';
+    let data = JSON.parse(await(await fetch(new URL('/api/data',rootUrl))).json())
+    if(!validator.isEmail(email)){ 
+      let error = new Error('Invalid user email');
+      error.statusCode = 400;
+      throw error;
+    }
+    if(!validator.isEmail(data.store_email)){
+      let error = new Error('Invalid store email');
+      error.statusCode = 400;
+      throw error;
+    }
+      // Pass the error to the custom error handling middleware
       
       await sendEmail(email,data.store_email,`${data.store_name} - gracias por contactarnos`, `
         <h1>Gracias por contactarnos, nos comunicaremos con usted a la brevedad.</h1> 
@@ -41,18 +53,20 @@ export default async function handler(req, res) {
         <p>Mensaje: <strong>${message}</strong></p>
         <p>Saludos, <strong>${data.store_name}</strong></p>
       `);
+      
       await sendEmail(data.store_email,email, `${data.store_name} - contacto de cliente`, `
       Nombre: ${name} 
       Email: ${email}
       Mensaje: ${message}
       `);
-
+      
       res.status(200).json({ message: 'Email sent successfully' });
-    } catch (error) {
-      console.error('Error sending email:', error);
-      res.status(500).json({ error: 'Error sending email' });
-    }
+      
   } else {
-    res.status(405).json({ error: 'Method not allowed' });
+    let error = new Error('Method not allowed');
+    error.statusCode = 400;
+    throw error;
   }
 }
+
+export default errorMiddleware(sendMailEndpoint)

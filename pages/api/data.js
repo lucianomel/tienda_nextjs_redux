@@ -1,15 +1,23 @@
 import fs from 'fs';
+import errorMiddleware from '@/utils/errorMiddleware';
 
-export default function handler(req, res) {
+const data = function handler(req, res) {
   // Path to the JSON file with data
-  const filePath = './data.json';
-
-  // Read the JSON file
-  fs.readFile(filePath, 'utf8', (err, data) => {
-  if (err) {
-    console.error('Error reading JSON data file:', err);
-    return;
+  let filePath
+  if(req.query && req.query.filePath){
+    filePath = req.query.filePath
+  }else{
+    filePath = './data.json';
   }
-  res.status(200).json(data)
-  });
+  // Read the JSON file
+  let data
+  try{
+    data = fs.readFileSync(filePath, 'utf8')
+  }catch(e){
+    throw new Error('Error reading JSON data file: '+e)
+  }
+    res.status(200).json(data)
 }
+
+
+export default errorMiddleware(data)

@@ -15,6 +15,6 @@ EMAIL_PASSWORD="contraseña del mail"
 MAIL_API_KEY="api key de brevo"
 ```
 
-Segundo, cargue los datos de su pagina en data.json bajo el directorio raiz del repositorio.
+Segundo, cargue los datos de su pagina en data.json bajo el directorio raiz del repositorio. Se ofrece una plantilla de ejemplo con datos en el archivo data.json ubicado en el directorio raíz  
 
 Finalmente ejecute `npm run dev` si quiere probarlo localmente o desplegue segun configuración de su hosting.
